@@ -39,5 +39,33 @@
     <script type="text/javascript">
 Hatena.Star.Token = '08130018cd302a7ee1ea157e3342761e07daa507';
 Hatena.Star.EntryLoader.headerTagAndClassName = ['h1', 'title'];
+Hatena.Star.EntryLoader.loadEntries = function(node) {
+    var c = Hatena.Star.EntryLoader;
+    if (c.entries) return c.entries;
+    var entries = [];
+    var headers = c.getHeaders(node);
+    for (var i = 0; i < headers.length; i++) {
+        var header = headers[i];
+        var a = header.getElementsByTagName('a')[0];
+        if (!a) continue;
+        var uri = a.href.replace(/http:\/\/[^\/]*/g, "http://blog.xn--28j4bt96ze5g.moe");
+        var title = '';
+        // Ten.DOM.removeEmptyTextNodes(header);
+        var cns = header.childNodes;
+        title = c.scrapeTitle(header);
+        var cc = c.createCommentContainer();
+        header.appendChild(cc);
+        var sc = c.createStarContainer();
+        header.appendChild(sc);
+        entries.push({
+            uri: uri,
+            title: title,
+            star_container: sc,
+            comment_container: cc
+        });
+    }
+    c.entries = entries;
+    return entries;
+}
     </script>
 </head>
