@@ -46,9 +46,7 @@ Hatena.Star.EntryLoader.loadEntriesByHeader = function(node) {
     var headers = c.getHeaders(node);
     for (var i = 0; i < headers.length; i++) {
         var header = headers[i];
-        var a = header.getElementsByTagName('a')[0];
-        if (!a) continue;
-        var uri = a.href.replace(/http:\/\/[^\/]*/g, "http://blog.xn--28j4bt96ze5g.moe");
+        var uri = location.href;
         var title = '';
         // Ten.DOM.removeEmptyTextNodes(header);
         var cns = header.childNodes;
